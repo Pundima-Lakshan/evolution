@@ -8,8 +8,8 @@ public class GameCameraSystem : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] private bool useEdgeScrolling = false;
     [SerializeField] private bool useDragPan = false;
-    [SerializeField] private float orthographicSizeMin = 1;
-    [SerializeField] private float orthographicSizeMax = 40;
+    [SerializeField] private float orthographicSizeMin = 5;
+    [SerializeField] private float orthographicSizeMax = 35;
 
     [SerializeField] private Rigidbody2D rigidBody;
 
