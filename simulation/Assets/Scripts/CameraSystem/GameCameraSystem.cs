@@ -43,7 +43,7 @@ public class GameCameraSystem : MonoBehaviour
 
         Vector3 moveDir = transform.up * inputDir.y + transform.right * inputDir.x;
 
-        float moveSpeed = 30f;
+        float moveSpeed = 15f;
         //transform.position += moveDir * moveSpeed * Time.deltaTime;
 
         rigidBody.velocity = new Vector2(moveDir.x * moveSpeed, moveDir.y * moveSpeed);
@@ -113,10 +113,10 @@ public class GameCameraSystem : MonoBehaviour
 
     private void HandleCameraZoom_OrthographicSize() {
         if (Input.mouseScrollDelta.y > 0) {
-            targetOrthographicSize -= 5;
+            targetOrthographicSize -= 2;
         }
         if (Input.mouseScrollDelta.y < 0) {
-            targetOrthographicSize += 5;
+            targetOrthographicSize += 2;
         }
 
         targetOrthographicSize = Mathf.Clamp(targetOrthographicSize, orthographicSizeMin, orthographicSizeMax);

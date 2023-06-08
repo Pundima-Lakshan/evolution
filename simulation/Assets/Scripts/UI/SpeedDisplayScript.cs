@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class SpeedDisplayScript : MonoBehaviour
 {
-    private static TextMeshProUGUI speedDisplayText;
+    [SerializeField] private TextMeshProUGUI speedDisplayText;
 
     private void Start() {
-        speedDisplayText = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
-    public void updateString()
+    public void UpdateString()
     {
         string displayText = "Speed: " + Time.timeScale + "X";
         if (speedDisplayText != null)
