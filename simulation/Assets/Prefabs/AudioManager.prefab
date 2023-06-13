@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6802357791407635543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6802357791407635545}
+  - component: {fileID: 6802357791407635544}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6802357791407635545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802357791407635543}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6802357791407635544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802357791407635543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb04d34e2ac8fe47bec874b339944b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Background
+    clip: {fileID: 8300000, guid: 38f73f984e78b8c498ae9990f803504f, type: 3}
+    volume: 0.2
+    loop: 1
+    source: {fileID: 0}
+  - name: BtnClick
+    clip: {fileID: 8300000, guid: e3b7a936effd2704486b7b64f8b53802, type: 3}
+    volume: 0.2
+    loop: 0
+    source: {fileID: 0}
+  - name: EnvironmentPlacement
+    clip: {fileID: 8300000, guid: 579b37835fd08bd4bbf5b82f8f2f1cfe, type: 3}
+    volume: 0.2
+    loop: 0
+    source: {fileID: 0}
+  - name: EnvironmentClear
+    clip: {fileID: 8300000, guid: ff796076eb90a684a8f10d2c8883c785, type: 3}
+    volume: 0.2
+    loop: 0
+    source: {fileID: 0}
