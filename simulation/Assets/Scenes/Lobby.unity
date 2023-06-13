@@ -761,7 +761,8 @@ MonoBehaviour:
   timeInterpolationGui: 0
   minPlayers: 2
   menuScene: Assets/Scenes/Lobby.unity
-  roomPlayerPrefab: {fileID: 2188110789957361627, guid: 411fb2e1b9666514c816576d1a2a64f0, type: 3}
+  roomPlayerPrefab: {fileID: 2188110789957361627, guid: 4d1f2b487b1ffa84abd4930c703ebbb4, type: 3}
+  gamePlayerPrefab: {fileID: 9184302364617276818, guid: 411fb2e1b9666514c816576d1a2a64f0, type: 3}
 --- !u!114 &542204703
 MonoBehaviour:
   m_ObjectHideFlags: 0

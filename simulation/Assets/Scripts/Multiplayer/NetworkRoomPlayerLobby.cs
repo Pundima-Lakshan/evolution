@@ -123,6 +123,7 @@ namespace DapperDino.Mirror.Tutorials.Lobby
             if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
 
             // Start Game
+            Room.StartGame();
         }
     }
 }

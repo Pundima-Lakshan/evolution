@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private static bool isPaused = false;
 
-    public static void toggleIsPaused() {
+    public static void ToggleIsPaused() {
         isPaused = !isPaused;
 
         if (isPaused) {
@@ -16,14 +16,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static bool getIsPaused() {
+    public static bool GetIsPaused() {
         return isPaused;
     }
 
-    public static void incrementSpeed() {
-        if (Time.timeScale < 5)
-            Time.timeScale *= 2;
+    public static void IncrementSpeed() {
+        if (Time.timeScale < 10)
+            Time.timeScale *= 5;
         else
             Time.timeScale = 1;
+    }
+
+    public static void QuitGameBtnClick() {
+        Application.Quit();
     }
 }

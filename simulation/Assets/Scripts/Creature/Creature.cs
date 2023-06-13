@@ -7,19 +7,19 @@ public class Creature : MonoBehaviour {
 
     [SerializeField] private bool isControllable = false;
 
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float viewDistance = 5f;
-    [SerializeField] private bool canEat = true;
-    [SerializeField] private float size = 1f;
-    [SerializeField] private float energy = 100f;
-    [SerializeField] private float energyGained = 10f;
-    [SerializeField] private float numberOfChildren = 10f;
-    [SerializeField] private float lifespan = 1f;
+    [SerializeField] private float moveSpeed = 0.2f;
+    [SerializeField] private float viewDistance = 1.5f;
+    //[SerializeField] private bool canEat = true;
+    //[SerializeField] private float size = 1f;
+    //[SerializeField] private float energy = 100f;
+    //[SerializeField] private float energyGained = 10f;
+    //[SerializeField] private float numberOfChildren = 10f;
+    //[SerializeField] private float lifespan = 1f;
 
-    [SerializeField] private float mutationChance = 0.8f;
-    [SerializeField] private float mutationAmount = 0.1f;
+    //[SerializeField] private float mutationChance = 0.8f;
+    //[SerializeField] private float mutationAmount = 0.1f;
 
-    [SerializeField] private bool isDead = false;
+    //[SerializeField] private bool isDead = false;
 
     private List<GameObject> edibleFoodList = new List<GameObject>();
 
@@ -46,9 +46,11 @@ public class Creature : MonoBehaviour {
             count++;
         }
 
-        GameObject closestFood = FindClosestFoodSource();
-        if (closestFood != null) {
-            Debug.Log("Closest food is " + closestFood.name);
+        if(count > 25) {
+            GameObject closestFood = FindClosestFoodSource();
+            if (closestFood != null) {
+                Debug.Log(this.name + " Closest food is " + closestFood.name);
+            }
         }
     }
 
@@ -62,7 +64,19 @@ public class Creature : MonoBehaviour {
 
     private void Move() {
         if (isControllable) {
-            //TODO input code
+            Vector3 inputDir = new Vector3(0, 0, 0);
+
+            if (Input.GetKey(KeyCode.W)) inputDir.y = +1f;
+            if (Input.GetKey(KeyCode.S)) inputDir.y = -1f;
+            if (Input.GetKey(KeyCode.A)) inputDir.x = -1f;
+            if (Input.GetKey(KeyCode.D)) inputDir.x = +1f;
+
+            Vector3 moveDir = transform.up * inputDir.y + transform.right * inputDir.x;
+
+            float moveSpeed = 30f;
+            //transform.position += moveDir * moveSpeed * Time.deltaTime;
+
+            rigibody2D.velocity = new Vector2(moveDir.x * moveSpeed, moveDir.y * moveSpeed);
         } else {
             int randomX = Random.Range(-10, 10);
             int randomY = Random.Range(-10, 10);
@@ -89,29 +103,25 @@ public class Creature : MonoBehaviour {
 
         //use a sphere cast to find all food in range (determined by viewDistance) of the agent and add them to a list of edible food.
         //this helps optimize the code by not having to check every food object in the scene.
-        if (Random.value * 100 < 5) {
-            edibleFoodList.Clear();
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(this.transform.position, viewDistance);
-            foreach (var hit in hitColliders) {
-                if (hit.gameObject.CompareTag("Creature")) {
-                    edibleFoodList.Add(hit.gameObject);
-                }
+        edibleFoodList.Clear();
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(this.transform.position, viewDistance);
+        foreach (var hit in hitColliders) {
+            if (hit.gameObject.CompareTag("Food")) {
+                edibleFoodList.Add(hit.gameObject);
             }
         }
 
         //find closest food in range of agent
-        if (Random.value * 100 < 50) {
-            for (int i = 0; i < edibleFoodList.Count; i++) {
-                if (edibleFoodList[i] != null) {
-                    float foodX = edibleFoodList[i].transform.position.x;
-                    float foodZ = edibleFoodList[i].transform.position.z;
+        for (int i = 0; i < edibleFoodList.Count; i++) {
+            if (edibleFoodList[i] != null) {
+                float foodX = edibleFoodList[i].transform.position.x;
+                float foodZ = edibleFoodList[i].transform.position.z;
 
-                    float foodDistance = Mathf.Sqrt((Mathf.Pow(foodX - creatureX, 2) + Mathf.Pow(foodZ - creatureY, 2)));
-                    if (foodDistance < minFoodDistance || minFoodDistance < 0) {
-                        minFoodDistance = foodDistance;
-                        if (minFoodDistance < viewDistance) {
-                            closestFood = edibleFoodList[i];
-                        }
+                float foodDistance = Mathf.Sqrt((Mathf.Pow(foodX - creatureX, 2) + Mathf.Pow(foodZ - creatureY, 2)));
+                if (foodDistance < minFoodDistance || minFoodDistance < 0) {
+                    minFoodDistance = foodDistance;
+                    if (minFoodDistance < viewDistance) {
+                        closestFood = edibleFoodList[i];
                     }
                 }
             }
