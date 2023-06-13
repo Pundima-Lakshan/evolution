@@ -16,6 +16,10 @@ public class UserFoodControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CreateMousePointerObject();
+    }
+
+    void CreateMousePointerObject() {
         pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         pos = new Vector3(pos.x, pos.y, mouseFoodParentObject.transform.position.z);
         foodObject = Instantiate(food, pos, Quaternion.identity);
@@ -32,9 +36,19 @@ public class UserFoodControl : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && !IsMouseOverUI()) {
             pos = new Vector3(pos.x, pos.y, foodParentObject.transform.position.z);
+            
             GameObject newSpawnedObject = Instantiate(food, pos, Quaternion.identity);
+            SpriteRenderer newSpawnedObjectSpriteRenderer = newSpawnedObject.GetComponent<SpriteRenderer>();
+            
+            newSpawnedObjectSpriteRenderer.sprite = foodObject.GetComponent<SpriteRenderer>().sprite;
             newSpawnedObject.transform.SetParent(foodParentObject.transform);
             newSpawnedObject.layer = LayerMask.NameToLayer("FoodSources");
+            
+            AudioManager.instance.Play("EnvironmentPlacement");
+            Destroy(foodObject);
+            CreateMousePointerObject();
+
+            GameManager.instance.SetFoodSourceCount(GameManager.instance.GetFoodSourceCount()-1);
         }
     }
 

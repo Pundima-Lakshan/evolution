@@ -20,6 +20,7 @@ public class UserClearControl : MonoBehaviour
             for (int i = 0; i < hits2D.Length; i++) {
                 if (hits2D[i].collider.gameObject.layer == LayerMask.NameToLayer("FoodSources") || hits2D[i].collider.gameObject.layer == LayerMask.NameToLayer("RadiationAreas")) {
                     Destroy(hits2D[i].collider.gameObject);
+                    AudioManager.instance.Play("EnvironmentClear");
                     break;
                 }
             }

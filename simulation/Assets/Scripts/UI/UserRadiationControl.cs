@@ -34,6 +34,7 @@ public class UserRadiationControl : MonoBehaviour
             GameObject newSpawnedObject = Instantiate(radiation, pos, Quaternion.identity);
             newSpawnedObject.transform.SetParent(radiationParentObject.transform);
             newSpawnedObject.layer = LayerMask.NameToLayer("RadiationAreas");
+            AudioManager.instance.Play("EnvironmentPlacement");
         }
     }
 

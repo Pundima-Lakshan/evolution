@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Creature : MonoBehaviour {
+public class Creature : MonoBehaviour, IPointerClickHandler {
+
+    public float age = 0;
 
     [SerializeField] private bool isControllable = false;
 
@@ -52,6 +54,8 @@ public class Creature : MonoBehaviour {
                 Debug.Log(this.name + " Closest food is " + closestFood.name);
             }
         }
+
+        age += 1 * Time.deltaTime;
     }
 
     private void UpdateSensesOfCreature() {
@@ -128,5 +132,19 @@ public class Creature : MonoBehaviour {
         }
 
         return (closestFood);
+    }
+
+    public void OnPointerClick(PointerEventData eventData) {
+        Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
+    }
+
+    public void SaveCreatureHandle() {
+        GameSave.SaveCreature(this);
+    }
+
+    public void LoadCreatureHandle() {
+        CreatureData data = GameSave.LoadCreature();
+
+        age = data.age;
     }
 }
