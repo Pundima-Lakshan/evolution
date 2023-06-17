@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Creature
   - Food
+  - Radiation
   layers:
   - Default
   - TransparentFX
