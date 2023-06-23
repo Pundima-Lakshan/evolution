@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        gameTime += 0.5f * Time.deltaTime;
+        gameTime += 1f * Time.deltaTime;
         gameTimeText.text = gameTime.ToString("0.00");
 
         if(creatureParentObject.transform.childCount <= 0) {

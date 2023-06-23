@@ -30,7 +30,7 @@ namespace DapperDino.Mirror.Tutorials.Lobby
         public override void OnStartClient()
         {
             var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
-
+            
             foreach (var prefab in spawnablePrefabs)
             {
                 NetworkClient.RegisterPrefab(prefab);

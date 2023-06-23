@@ -55,7 +55,8 @@ public class Creature : MonoBehaviour, IPointerClickHandler {
             }
         }
 
-        age += 1 * Time.deltaTime;
+        if (GameManager.instance != null)
+            age = GameManager.instance.GetGameTime();
     }
 
     private void UpdateSensesOfCreature() {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class GameSave
 {
-    static string path = Application.persistentDataPath + "/player.gpd";
+    static string path = Application.dataPath + "/Resources/player.gpd";
     public static void SaveCreature(Creature creature) {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
