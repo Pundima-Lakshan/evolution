@@ -8,14 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField] private int foodSourceCount = 5;
-    [SerializeField] private int radiationZoneCount = 5;
-
     private float gameTime = 0f;
+
     [SerializeField] private TextMeshProUGUI gameTimeText;
-
     [SerializeField] private GameObject creatureParentObject;
-
     [SerializeField] private GameObject lostScreen;
 
     private static bool isPaused = false;
@@ -35,27 +31,9 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
-        foodSourceCount = 5;
-        radiationZoneCount = 5;
         gameTime = 0f;
         isPaused = false;
         isLost = false;
-    }
-
-    public int GetFoodSourceCount() {
-        return instance.foodSourceCount;
-    }
-
-    public void SetFoodSourceCount(int count) {
-        instance.foodSourceCount = count;
-    }
-
-    public int GetRadiationZoneCount() {
-        return instance.radiationZoneCount;
-    }
-    
-    public void SetRadiationZoneCount(int count) {
-        instance.radiationZoneCount = count;
     }
 
     public float GetGameTime() {
@@ -72,7 +50,7 @@ public class GameManager : MonoBehaviour
         gameTimeText.text = gameTime.ToString("0.00");
 
         if(creatureParentObject.transform.childCount <= 0) {
-            isLost = true;
+            //isLost = true;
         }        
     }
 

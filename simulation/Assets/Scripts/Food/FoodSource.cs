@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class FoodSource : MonoBehaviour
 {
-    private float percentage = 100f;
-
     [SerializeField] private Sprite[] foodSource1;
     [SerializeField] private Sprite[] foodSource2;
     private Sprite[][] foodSources;

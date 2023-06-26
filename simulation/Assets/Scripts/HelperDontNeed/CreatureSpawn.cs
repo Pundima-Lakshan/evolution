@@ -26,11 +26,7 @@ public class CreatureSpawn : MonoBehaviour {
         }
     }
 
-    void SpawnCreature() {
-        Vector3 spawnPosition = new Vector3(Random.Range(minPosition.x, maxPosition.x), Random.Range(minPosition.y, maxPosition.y), 0);
-        GameObject spawnedCreature = Instantiate(prefab, spawnPosition, Quaternion.identity);
-        InitializePrefab(spawnedCreature);
-    }
+    
 
     void InitializePrefab(GameObject spawnedCreature) {
         // Your custom initialization code here, using the spawnedCreature reference
