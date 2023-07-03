@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Mirror;
@@ -77,7 +78,6 @@ public class ScoreScript : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("countCreatures");
         countCreatures();
         
     }
@@ -91,14 +91,18 @@ public class ScoreScript : NetworkBehaviour
 
         for (int i=0; i < players.Length && i < playerScores.Length; i++)
         {
-            // Debug.Log("Player names "+players[i].name);
-            Transform transform = playerScores[i].transform.Find("NoOfCreatures");
+            //  Check if the plaerScores object is deactive
+            if(!playerScores[i].activeSelf)
+            {
+                playerScores[i].SetActive(true);
+            }
+            Transform transformCreatureCount = playerScores[i].transform.Find("NoOfCreatures");
             if(transform == null)
             {
                 Debug.Log("Transform is null");
                 continue;
             }
-            TextMeshProUGUI text = transform.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI text = transformCreatureCount.GetComponent<TextMeshProUGUI>();
             if(text == null)
             {
                 Debug.Log("Text is null");
@@ -106,26 +110,20 @@ public class ScoreScript : NetworkBehaviour
             }
             if(isServer)
             {
-                Debug.Log("Player "+i+" has "+players[i].transform.childCount+" creatures");
-                creatureCount[i] = players[i].transform.childCount;
+                // If palyer object is not distroyed
+                if(players[i] != null)
+                {
+                    // Get the number of creatures
+                    creatureCount[i] = players[i].transform.childCount;
+                }
+                else{
+                    creatureCount[i] = 0;
+                }
+                
             }
 
-            Debug.Log("Player "+i+" has "+creatureCount[i]+" creatures");
             text.text = creatureCount[i].ToString();
 
-            // transform = playerScores[i].transform.Find("CreatureSprite");
-            // if(transform == null)
-            // {
-            //     Debug.Log("Transform is null");
-            //     continue;
-            // }
-            // SpriteRenderer spriteRenderer = playerScores[i].transform.GetComponent<SpriteRenderer>();
-            // if(spriteRenderer == null)
-            // {
-            //     Debug.Log("Sprite renderer is null");
-            //     continue;
-            // }
-            // spriteRenderer.sprite = players[i].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
         }
     }
 
@@ -138,7 +136,12 @@ public class ScoreScript : NetworkBehaviour
 
         for (int i=0; i < players.Length; i++)
         {
-            // Debug.Log("Player names "+players[i].name);
+            // Check if i is outside the bounds of the array
+            if(i >= playerScores.Length)
+            {
+                Debug.Log("Player score array out of bounds");
+                continue;
+            }
             Transform transformName = playerScores[i].transform.Find("Name");
             if(transformName == null)
             {
@@ -154,7 +157,6 @@ public class ScoreScript : NetworkBehaviour
 
             if(isServer)
             {
-                Debug.Log("Player "+i+" has "+players[i].transform.childCount+" creatures");
                 // Get the player name
                 playerNames[i] = players[i].name;
             }

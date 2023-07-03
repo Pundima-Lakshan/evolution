@@ -15,7 +15,7 @@ namespace DapperDino.Mirror.Tutorials.Lobby
 
         private float spawnRange = 10f;
 
-        // Find CreaturesData object and return the age
+        private GameObject[] gamePlayers;
         private float loadCreatureDetails()
         {
             GameObject creaturesData = GameObject.Find("CreaturesData");
@@ -29,12 +29,17 @@ namespace DapperDino.Mirror.Tutorials.Lobby
 
 
         [Command]
-        public void CmdSpawnCreature(float _age, string name, uint netId)
+        public void CmdSpawnCreature(float _age, string name, uint netID)
         {
+            // If gamePlayers is empty, find all players
+            if (gamePlayers == null)
+            {
+                gamePlayers = GameObject.FindGameObjectsWithTag("Gameplayer");
+            }
+            Debug.Log("Size of GamePlayers: " + gamePlayers.Length);
             // Check if the parent object is marked as DontDestroyOnLoad
             if (parent.scene.name == null)
             {
-                Debug.Log("Donotdistroy parent found");
                 // Instantiate a new instance of the parent object at 0,0,0
                 GameObject newParent = Instantiate(parent, Vector3.zero, Quaternion.identity);
 
@@ -45,15 +50,22 @@ namespace DapperDino.Mirror.Tutorials.Lobby
 
             // Changing parent name to player name
             if (parent.name != name)
-                Debug.Log("Parent name changed to " + name);
                 parent.name = name;
             
+            // // If netID is not in the list, add it to the list
+            // if (!netIDs.Contains(netID))
+            // {
+            //     Debug.Log("Adding netID" + netID);
+            //     // Add the netID to the next index in the list
+            //     netIDs.Add(netID);
+            // }
+                
             GameObject creatureInstance;
             if (parent == null)
                 Debug.Log("Null parent");
             else {
                 NetworkServer.Spawn(parent, connectionToClient);
-                creatureInstance = Instantiate(creaturePrefabs[netId % 4], parent.transform);
+                creatureInstance = Instantiate(creaturePrefabs[(gamePlayers.Length * 2 - netID) % 4], parent.transform);
                 creatureInstance.GetComponent<Creature>().age = _age;
                 NetworkServer.Spawn(creatureInstance, connectionToClient);
             }
@@ -77,16 +89,19 @@ namespace DapperDino.Mirror.Tutorials.Lobby
             
                 if (isOwned)
                 {
-                    // Debug.Log("isOwned MultiplayerCreatureSpawner");
+                    
                     for (int i = 0; i < 10; i++)
                     {
-                        // Debug.Log("Spawn creature MultiplayerCreatureSpawner");
-                        CmdSpawnCreature(loadCreatureDetails(), PlayerNameInput.DisplayName, this.GetComponent<NetworkIdentity>().netId);
+                        CmdSpawnCreature(loadCreatureDetails(), PlayerNameInput.DisplayName, GetComponent<NetworkIdentity>().netId);
                     }
                     
                     isFinished = true;
                 }
-                ScoreScript.instance.LoadPlayersAndScores();
+                if (ScoreScript.instance != null)
+                {
+                    ScoreScript.instance.LoadPlayersAndScores();
+                }
+                
             }
         }
     }

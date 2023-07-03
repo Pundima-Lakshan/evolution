@@ -18,7 +18,6 @@ public class ScoreUISpawner : NetworkBehaviour
     bool isSpawned = false;
     void Update()
     {
-        Debug.Log("NetworkClient.ready: " + NetworkClient.ready);
         if (isOwned && !isSpawned && NetworkClient.ready)
         {   
             cmdSpawnUI();

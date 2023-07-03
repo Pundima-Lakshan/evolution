@@ -34,7 +34,6 @@ public class SaveObjectsWithTag : MonoBehaviour
 
         // Convert the 2D array to a string
         string dataString = "";
-        Debug.Log(data.age + " This is data age");
         dataString += data.age;
 
         // Write the data to the file
@@ -44,31 +43,4 @@ public class SaveObjectsWithTag : MonoBehaviour
         }
         stream.Close();
     }
-
-    // void Start()
-    // {
-    //     List<GameObject> objectsWithTag = new List<GameObject>(GameObject.FindGameObjectsWithTag(Prefab.tag));
-    //     List<string> objectData = new List<string>();
-    //     foreach (GameObject obj in objectsWithTag)
-    //     {
-    //         objectData.Add(JsonUtility.ToJson(obj));
-    //     }
-    //     File.WriteAllText(filename, JsonHelper.ToJson(objectData.ToArray()));
-    // }
 }
-
-// public static class JsonHelper
-// {
-//     public static string ToJson<T>(T[] array)
-//     {
-//         Wrapper<T> wrapper = new Wrapper<T>();
-//         wrapper.Items = array;
-//         return JsonUtility.ToJson(wrapper);
-//     }
-
-//     [System.Serializable]
-//     private class Wrapper<T>
-//     {
-//         public T[] Items;
-//     }
-// }
