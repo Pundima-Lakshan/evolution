@@ -6,8 +6,7 @@ TagManager:
   tags:
   - Creature
   - Food
-  - Multiplayer
-  - Gameplayer
+  - Radiation
   layers:
   - Default
   - TransparentFX

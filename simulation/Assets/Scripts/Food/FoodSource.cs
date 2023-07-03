@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodSource : MonoBehaviour
@@ -16,9 +14,10 @@ public class FoodSource : MonoBehaviour
     private float foodPercentage = 100f;
     private const float foodPercentageReduction = 0.1f;
 
-    private void ReduceFood() {
+    public void ReduceFood(Creature creature) {
         foodPercentage -= foodPercentageReduction;
         if (foodPercentage <= 0) {
+            creature.isEating = false;
             Destroy(gameObject);
         }
         else if(foodPercentage <= 33) {
@@ -31,7 +30,14 @@ public class FoodSource : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision) {
         if (collision.gameObject.tag == "Creature") {
-            ReduceFood();
+            Creature creature = collision.gameObject.GetComponent<Creature>();
+            if(creature == null) {
+                Debug.Log("creature not found in trigger food");
+                return;
+            }
+            creature.Collided("Food");
+            if(creature.isEating)
+                ReduceFood(creature);
         }
     }
 

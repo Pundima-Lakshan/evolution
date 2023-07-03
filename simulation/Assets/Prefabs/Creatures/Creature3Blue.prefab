@@ -49,12 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c818f7b85b926b44ba72834e898a954f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  age: 0
-  isControllable: 0
+  parentRigibody2D: {fileID: 5937893777823637782}
+  maxHealth: 10
+  maxAge: 10
   moveSpeed: 0.1
-  viewDistance: 1.5
-  rigibody2D: {fileID: 5937893777823637782}
-  circle: {fileID: 8591060457985928585}
+  sensorDistance: 5
 --- !u!50 &5937893777823637782
 Rigidbody2D:
   serializedVersion: 4

@@ -9,10 +9,10 @@ public class TestingSaveAge : MonoBehaviour
     [SerializeField] Creature creature;
 
     private void Awake() {
-        m_TextMeshProUGUI.text = creature.age.ToString();
+        m_TextMeshProUGUI.text = creature.creatureData.maxAge.ToString();
     }
 
     private void Update() {
-        m_TextMeshProUGUI.text = creature.age.ToString();
+        m_TextMeshProUGUI.text = creature.creatureData.maxAge.ToString();
     }
 }

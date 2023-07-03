@@ -274,8 +274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c818f7b85b926b44ba72834e898a954f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isControllable: 0
+  parentRigibody2D: {fileID: 3912945572115264244}
+  maxHealth: 10
+  maxAge: 10
   moveSpeed: 0.1
-  viewDistance: 1.5
-  rigibody2D: {fileID: 3912945572115264244}
-  circle: {fileID: 4939201947565605367}
+  sensorDistance: 5

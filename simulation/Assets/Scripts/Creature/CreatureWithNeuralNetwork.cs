@@ -4,10 +4,14 @@ using UnityEngine.EventSystems;
 
 public class CreatureWithNeuralNetwork : MonoBehaviour, IPointerClickHandler {
 
-    private const float sensorDistance = 5f;
-    private const float moveSpeed = 5f;
-    private const float maxHealth = 10f;
-    private const float maxAge = 10f;
+    [SerializeField] private Rigidbody2D parentRigibody2D;
+    [SerializeField] private GameObject sensorGameObject;
+ 
+    public float maxHealth = 10f;
+    public float maxAge = 10f;
+    public float moveSpeed = 5f;
+    public float sensorDistance = 5f;    
+    
     private const float fitnessGene = 0.5f; // 0 to 1
 
     private float age = 0f;
@@ -23,7 +27,8 @@ public class CreatureWithNeuralNetwork : MonoBehaviour, IPointerClickHandler {
 
     private bool isDead = false;
 
-    [SerializeField] private Rigidbody2D rigibody2D;
+    private float forwardSensorDetection, rightDiagonalSensorDetection, leftDiagonalSensorDetection; // 1 - 0.5 - 0
+    private float forwardSensorDistance, rightDiagonalSensorDistance, leftDiagonalSensorDistance;
 
     private void OnCollisionStay2D(Collision2D collision) {
         if (collision.gameObject.tag == "Food") {
@@ -35,43 +40,58 @@ public class CreatureWithNeuralNetwork : MonoBehaviour, IPointerClickHandler {
         }
     }
 
-    private void CheckSensors() {
-        Vector3 forward = (transform.forward);
-        Vector3 rightDiagonal = (transform.forward + transform.right);
-        Vector3 leftDiagonal = (transform.forward - transform.right);
+    private void CheckRaySensors() {
+        Vector2 forward = (transform.up);
+        Vector2 rightDiagonal = (transform.up + transform.right);
+        Vector2 leftDiagonal = (transform.up - transform.right);
 
-        Ray r = new Ray(transform.position, forward);
-        RaycastHit raycastHit;
+        RaycastHit2D raycastHit;
 
-        if (Physics.Raycast(r, out raycastHit, sensorDistance)) {
+        if (raycastHit = Physics2D.Raycast(transform.position, forward, sensorDistance)) {
             if (raycastHit.collider.gameObject.tag == "Food") {
                 Debug.Log("Food detected at " + sensorDistance);
+                forwardSensorDistance = raycastHit.distance;
+                forwardSensorDetection = 0.5f;
             } else if (raycastHit.collider.gameObject.tag == "Radiation") {
                 Debug.Log("Radiation detected at " + sensorDistance);
+                forwardSensorDistance = raycastHit.distance;
+                forwardSensorDetection = 1f;
             } else {
                 Debug.Log("Nothing detected at " + sensorDistance);
+                forwardSensorDistance = 1f;
+                forwardSensorDetection = 0f;
             }
         }
 
-        r.direction = rightDiagonal;
-        if (Physics.Raycast(r, out raycastHit, sensorDistance)) {
+        if (raycastHit = Physics2D.Raycast(transform.position, rightDiagonal, sensorDistance)) {
             if (raycastHit.collider.gameObject.tag == "Food") {
                 Debug.Log("Food detected at " + sensorDistance);
+                rightDiagonalSensorDistance = raycastHit.distance;
+                rightDiagonalSensorDetection = 0.5f;
             } else if (raycastHit.collider.gameObject.tag == "Radiation") {
                 Debug.Log("Radiation detected at " + sensorDistance);
+                rightDiagonalSensorDistance = raycastHit.distance;
+                rightDiagonalSensorDetection = 1f;
             } else {
                 Debug.Log("Nothing detected at " + sensorDistance);
+                rightDiagonalSensorDistance = raycastHit.distance;
+                rightDiagonalSensorDetection = 0f;
             }
         }
 
-        r.direction = leftDiagonal;
-        if (Physics.Raycast(r, out raycastHit, sensorDistance)) {
+        if (raycastHit = Physics2D.Raycast(transform.position, leftDiagonal, sensorDistance)) {
             if (raycastHit.collider.gameObject.tag == "Food") {
                 Debug.Log("Food detected at " + sensorDistance);
+                leftDiagonalSensorDistance = raycastHit.distance;
+                leftDiagonalSensorDetection = 0.5f;
             } else if (raycastHit.collider.gameObject.tag == "Radiation") {
                 Debug.Log("Radiation detected at " + sensorDistance);
+                leftDiagonalSensorDistance = raycastHit.distance;
+                leftDiagonalSensorDetection = 1f;
             } else {
                 Debug.Log("Nothing detected at " + sensorDistance);
+                leftDiagonalSensorDistance = raycastHit.distance;
+                leftDiagonalSensorDetection = 0f;
             }
         }
     }
@@ -113,9 +133,14 @@ public class CreatureWithNeuralNetwork : MonoBehaviour, IPointerClickHandler {
     }
 
     private void MoveCreature(float rotationAngle) {
-        // rotation angle to vector 2D direction
+        // rotation angle to vector 2D direction for creature
         Vector2 moveDirection2D = new Vector2(Convert.ToSingle(Math.Cos(rotationAngle)), Convert.ToSingle(Math.Sin(rotationAngle)));
-        rigibody2D.velocity = moveDirection2D * moveSpeed;
+        parentRigibody2D.velocity = moveDirection2D * moveSpeed;
+
+        // rotating the sensor
+        sensorGameObject.transform.eulerAngles += new Vector3(0, 0, (rotationAngle * 90) * 0.02f);
+
+        Debug.DrawRay(sensorGameObject.transform.position, moveDirection2D, Color.red, 0.1f, false);
     }
 
     private float NeuralNetworkUpdate() {
@@ -148,7 +173,7 @@ public class CreatureWithNeuralNetwork : MonoBehaviour, IPointerClickHandler {
         }
 
         // Sensor Update
-        CheckSensors();
+        CheckRaySensors();
 
         // Neural Network Update
         float rotationAngle = NeuralNetworkUpdate();
