@@ -12,7 +12,7 @@ public class Creature : MonoBehaviour, IPointerClickHandler {
 
     private const float fitnessGene = 0.5f; // 0 to 1 is it
 
-    [SerializeField] private float age = 0f;
+    public float age = 0f;
     private float fitness = 0f;
 
     [SerializeField] private float hunger = 0f;

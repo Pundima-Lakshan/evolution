@@ -18,6 +18,44 @@ public class ScoreScript : NetworkBehaviour
     public class SyncListString : SyncList<string> { }
     public SyncListInt creatureCount = new SyncListInt();
     public SyncListString playerNames = new SyncListString();
+
+    [SerializeField] private GameObject gameOverScreen;
+
+    
+    private bool isCounted = false;
+
+
+    [SyncVar(hook = nameof(OnGameOverChanged))]
+    bool isGameOver = false;
+    
+
+    [ServerCallback]
+    public void GameOver()
+    {
+        isGameOver = true;
+    }
+    
+    void OnGameOverChanged(bool oldValue, bool newValue)
+    {
+        if(gameOverScreen == null)
+        {
+            Debug.Log("Game over screen not found");
+            return;
+        }
+        // Activate the canvas inside the game over screen
+        gameOverScreen.transform.GetChild(0).gameObject.SetActive(true);
+
+        // Stop the game logic on the client
+        if (newValue)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
+
     
     void Awake()
     {
@@ -41,6 +79,9 @@ public class ScoreScript : NetworkBehaviour
                 playerNames.Add("Player" + (i+1).ToString());
             }
         }
+
+        // Find gameover screen
+        gameOverScreen = GameObject.Find("GameOverScreen");
 
         Transform scoresobjectTransform = transform.Find("Scores");
         if(scoresobjectTransform == null) {
@@ -72,6 +113,7 @@ public class ScoreScript : NetworkBehaviour
         playerScores[1] = player2Transform.gameObject;
         playerScores[2] = player3Transform.gameObject;
         playerScores[3] = player4Transform.gameObject;
+
         
     }
 
@@ -125,6 +167,29 @@ public class ScoreScript : NetworkBehaviour
             text.text = creatureCount[i].ToString();
 
         }
+
+        // If playerScores only have three element with zero value
+        int zeroCount = 0;
+        for (int i=0; i < playerScores.Length; i++)
+        {
+            if(creatureCount[i] == 0)
+            {
+                zeroCount++;
+            }
+        }
+
+        // Find wheather the scores were counted
+        if(zeroCount < 3 && !isCounted)
+        {
+            isCounted = true;
+            
+        }
+
+        if(isCounted && zeroCount == 3)
+        {
+            GameOver();
+        }
+        
     }
 
     public void LoadPlayersAndScores() {

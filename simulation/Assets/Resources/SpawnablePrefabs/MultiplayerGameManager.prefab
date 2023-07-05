@@ -739,6 +739,7 @@ MonoBehaviour:
   syncInterval: 0
   players: []
   playerScores: []
+  gameOverScreen: {fileID: 0}
 --- !u!1 &1658850736698738076
 GameObject:
   m_ObjectHideFlags: 0
