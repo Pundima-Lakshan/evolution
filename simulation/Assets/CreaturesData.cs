@@ -12,6 +12,9 @@ public class CreaturesData : MonoBehaviour
     public GameObject creatureParentObject;
     public float value;
 
+    // An array to store data of creatures
+    public List<CreatureData> creaturesData = new List<CreatureData>();
+
     // Start is called before the first frame update
     public void GetData()
     {
@@ -23,8 +26,15 @@ public class CreaturesData : MonoBehaviour
             return;
         }
 
-        Transform child = creatureParentObject.transform.GetChild(0);
-        value = child.GetComponent<Creature>().age;
+        // Get data from creatures
+        for (int i = 0; i < creatureParentObject.transform.childCount; i++) {
+            Transform child = creatureParentObject.transform.GetChild(i);
+            creaturesData.Add(child.GetComponent<Creature>().creatureData);
+        }
+
+
+        Transform exCreature = creatureParentObject.transform.GetChild(0);
+        value = exCreature.GetComponent<Creature>().age;
     }
 
     public void StartMultiplayer()

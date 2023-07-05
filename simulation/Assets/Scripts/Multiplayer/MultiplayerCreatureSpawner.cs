@@ -16,7 +16,7 @@ namespace DapperDino.Mirror.Tutorials.Lobby
         private float spawnRange = 10f;
 
         private GameObject[] gamePlayers;
-        private float loadCreatureDetails()
+        private CreatureData loadCreatureDetails()
         {
             GameObject creaturesData = GameObject.Find("CreaturesData");
             if (creaturesData != null) {
@@ -24,12 +24,12 @@ namespace DapperDino.Mirror.Tutorials.Lobby
                 Debug.Log("CreaturesData not found");
             }
 
-            return creaturesData.GetComponent<CreaturesData>().value;
+            return creaturesData.GetComponent<CreaturesData>().creaturesData[0];
         }
 
 
         [Command]
-        public void CmdSpawnCreature(float _age, string name, uint netID)
+        public void CmdSpawnCreature(CreatureData data, string name, uint netID)
         {
             // If gamePlayers is empty, find all players
             if (gamePlayers == null)
@@ -66,7 +66,7 @@ namespace DapperDino.Mirror.Tutorials.Lobby
             else {
                 NetworkServer.Spawn(parent, connectionToClient);
                 creatureInstance = Instantiate(creaturePrefabs[(gamePlayers.Length * 2 - netID) % 4], parent.transform);
-                creatureInstance.GetComponent<Creature>().age = _age;
+                creatureInstance.GetComponent<Creature>().creatureData = data;
                 NetworkServer.Spawn(creatureInstance, connectionToClient);
             }
                 

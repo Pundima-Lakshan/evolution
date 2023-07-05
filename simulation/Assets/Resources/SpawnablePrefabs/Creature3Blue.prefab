@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 5937893777823637782}
   - component: {fileID: 5937893777823637783}
   - component: {fileID: 6604104721718489942}
-  - component: {fileID: -5734839375719904243}
-  - component: {fileID: 3210278187547790256}
+  - component: {fileID: 5401484807553854000}
+  - component: {fileID: 4207769440102251354}
   m_Layer: 0
   m_Name: Creature3Blue
-  m_TagString: Player
+  m_TagString: Creature
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,12 +51,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c818f7b85b926b44ba72834e898a954f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentRigibody2D: {fileID: 5937893777823637782}
+  creatureData:
+    maxHealth: 20
+    maxAge: 60
+    moveSpeed: 1
+    sensorDistance: 5
   age: 0
-  isControllable: 0
-  moveSpeed: 0.1
-  viewDistance: 1.5
-  rigibody2D: {fileID: 5937893777823637782}
-  circle: {fileID: 8591060457985928585}
+  hunger: 0
+  health: 20
+  isEating: 0
+  foodSourcesSensed: []
+  radiationAreasSensed: []
+  movingDirection: {x: 0, y: 0}
 --- !u!50 &5937893777823637782
 Rigidbody2D:
   serializedVersion: 4
@@ -109,7 +116,7 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
   scale: {x: 0, y: 0, z: 0}
---- !u!114 &-5734839375719904243
+--- !u!114 &5401484807553854000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,11 +129,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 3853751111
+  _assetId: 2299268316
   serverOnly: 0
   visible: 0
   hasSpawned: 0
---- !u!114 &3210278187547790256
+--- !u!114 &4207769440102251354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

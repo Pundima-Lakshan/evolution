@@ -83,10 +83,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   creaturePrefabs:
-  - {fileID: 4645598510706778774, guid: 00457add96ce83640a4a3d153b6d5f98, type: 3}
-  - {fileID: 6646653301025328578, guid: e4ec08057f9c2244bb1256ecb4eb2413, type: 3}
-  - {fileID: 5937893777823637786, guid: ba7b4586b41f9e84ea5d36e4343f7a25, type: 3}
-  - {fileID: 7706475451795217760, guid: ffc0997c078b38f49b65e4dce54fae0a, type: 3}
+  - {fileID: 4645598510706778774, guid: de3a451631f454940bb71614d910a28f, type: 3}
+  - {fileID: 6646653301025328578, guid: 12f5ee8ecf78b9b41a3926108a1c6147, type: 3}
+  - {fileID: 5937893777823637786, guid: fe43a8d71728c9f4686ca2db4bdf1965, type: 3}
+  - {fileID: 7706475451795217760, guid: 09beab1494480994fa0c49cf4cbb89ca, type: 3}
   parent: {fileID: 7533735364721207756, guid: 65c49a3936283b845be7e050ae6bcd55, type: 3}
 --- !u!114 &-6006373535464760783
 MonoBehaviour:
