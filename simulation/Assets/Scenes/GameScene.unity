@@ -1661,7 +1661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd8030875758b643bc94197c3ad32f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  food: {fileID: 0}
+  food: {fileID: 8404797427484816968, guid: d655113a62fc13244867ed7a27de9705, type: 3}
   foodParentObject: {fileID: 870481853}
   mouseFoodParentObject: {fileID: 839429409}
   foodCount: {fileID: 0}

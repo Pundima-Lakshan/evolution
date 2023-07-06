@@ -91,7 +91,7 @@ namespace DapperDino.Mirror.Tutorials.Lobby
             {
                 playerNameTexts[i].text = Room.RoomPlayers[i].DisplayName;
                 playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ?
-                    "<color=green>Ready</color>" :
+                    "<color=#183DF3>Ready</color>" :
                     "<color=red>Not Ready</color>";
             }
         }
