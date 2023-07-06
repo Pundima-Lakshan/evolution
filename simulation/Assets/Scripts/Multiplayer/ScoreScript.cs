@@ -24,14 +24,17 @@ public class ScoreScript : NetworkBehaviour
     
     private bool isCounted = false;
 
+    [SyncVar]
+    string winner = "Player";
 
     [SyncVar(hook = nameof(OnGameOverChanged))]
     bool isGameOver = false;
     
 
     [ServerCallback]
-    public void GameOver()
+    public void GameOver(string winnersName)
     {
+        winner = winnersName;
         isGameOver = true;
     }
     
@@ -43,7 +46,20 @@ public class ScoreScript : NetworkBehaviour
             return;
         }
         // Activate the canvas inside the game over screen
-        gameOverScreen.transform.GetChild(0).gameObject.SetActive(true);
+        Transform canvasTransform = gameOverScreen.transform.GetChild(0);
+        if(canvasTransform == null)
+            Debug.Log("Could't find canvas transform");
+        canvasTransform.gameObject.SetActive(true);
+
+        Transform winnerTransform = canvasTransform.GetChild(1);
+        if(winnerTransform == null)
+            Debug.Log("Couldn't find winnerTransform");
+
+        TextMeshProUGUI winnerText = winnerTransform.GetComponent<TextMeshProUGUI>();
+        if(winnerText == null) 
+            Debug.Log("Couldn't find winnerText");
+
+        winnerText.text = "Winner: " + winner;
 
         // Stop the game logic on the client
         if (newValue)
@@ -170,11 +186,16 @@ public class ScoreScript : NetworkBehaviour
 
         // If playerScores only have three element with zero value
         int zeroCount = 0;
+        string tempPlayer = "Player";
         for (int i=0; i < playerScores.Length; i++)
         {
             if(creatureCount[i] == 0)
             {
                 zeroCount++;
+            }
+            else
+            {
+                tempPlayer = playerNames[i];
             }
         }
 
@@ -187,7 +208,7 @@ public class ScoreScript : NetworkBehaviour
 
         if(isCounted && zeroCount == 3)
         {
-            GameOver();
+            GameOver(tempPlayer);
         }
         
     }

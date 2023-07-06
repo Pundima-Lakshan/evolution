@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9184302364617276818}
   - component: {fileID: 7693200504077179181}
   - component: {fileID: -6006373535464760783}
+  - component: {fileID: 447818059096542376}
   m_Layer: 0
   m_Name: GamePlayer
   m_TagString: Gameplayer
@@ -104,3 +105,20 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Score: {fileID: 1658850736848866353, guid: 83b72c9c570df204d93fd679999aa3a4, type: 3}
+--- !u!114 &447818059096542376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54814838797851026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c03e54d1c70e5254da65800615c9dc81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  food: {fileID: 8404797427484816968, guid: 949fa9a7430b92f428b0a24108862239, type: 3}
+  radiationZone: {fileID: 1773316567429870779, guid: 22d7935606190214d81d16fb591de7b7, type: 3}

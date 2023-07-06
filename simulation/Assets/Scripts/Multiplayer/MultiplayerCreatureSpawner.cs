@@ -13,7 +13,7 @@ namespace DapperDino.Mirror.Tutorials.Lobby
 
         [SerializeField] private GameObject parent;
 
-        private float spawnRange = 10f;
+        private float spawnRange = 40f;
 
         private GameObject[] gamePlayers;
         private CreatureData loadCreatureDetails()
@@ -36,7 +36,6 @@ namespace DapperDino.Mirror.Tutorials.Lobby
             {
                 gamePlayers = GameObject.FindGameObjectsWithTag("Gameplayer");
             }
-            Debug.Log("Size of GamePlayers: " + gamePlayers.Length);
             // Check if the parent object is marked as DontDestroyOnLoad
             if (parent.scene.name == null)
             {
@@ -66,6 +65,7 @@ namespace DapperDino.Mirror.Tutorials.Lobby
             else {
                 NetworkServer.Spawn(parent, connectionToClient);
                 creatureInstance = Instantiate(creaturePrefabs[(gamePlayers.Length * 2 - netID) % 4], parent.transform);
+                creatureInstance.transform.position = GetRandomSpawnPosition();
                 creatureInstance.GetComponent<Creature>().creatureData = data;
                 NetworkServer.Spawn(creatureInstance, connectionToClient);
             }
@@ -76,9 +76,10 @@ namespace DapperDino.Mirror.Tutorials.Lobby
 
         private Vector3 GetRandomSpawnPosition()
         {
-            Vector3 randomSpawnPosition = new Vector3(Random.Range(-spawnRange, spawnRange), 0f, Random.Range(-spawnRange, spawnRange));
+            Vector3 randomSpawnPosition = new Vector3(Random.Range(-spawnRange, spawnRange), Random.Range(-spawnRange, spawnRange), 0f );
             return randomSpawnPosition;
         }
+
         private bool isFinished = false;
         // Client code
         void Update()
