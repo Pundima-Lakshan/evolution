@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8404797427476180369}
   - component: {fileID: 8404797427476180372}
   - component: {fileID: 8404797427476180374}
-  - component: {fileID: 8404797427476180373}
   - component: {fileID: 2597061151435480924}
   - component: {fileID: 2679629524079518441}
   - component: {fileID: -626344863347830054}
+  - component: {fileID: -6459259137053598803}
   m_Layer: 8
   m_Name: FoodSourceMultiplayer
   m_TagString: Untagged
@@ -110,27 +110,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8404797427476180373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8404797427484816968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f9ffad18fb9a064884e7b1592a2c454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodSource1:
-  - {fileID: 21300000, guid: c91c53647b479514a96989ccf7b3a7ca, type: 3}
-  - {fileID: 21300000, guid: 0a6e4e259f578d348887b9da009f49e9, type: 3}
-  - {fileID: 21300000, guid: bf2638e16060bbc4e89a1f369368f45f, type: 3}
-  foodSource2:
-  - {fileID: 21300000, guid: 2b176cce311b4754cbc3c513c48bf625, type: 3}
-  - {fileID: 21300000, guid: 2b0cbcd77c820bf47afbf9bb09ae13f5, type: 3}
-  - {fileID: 21300000, guid: 6258280fd3ce8134e807b0426cb249c3, type: 3}
-  spriteRenderer: {fileID: 8404797427476180372}
 --- !u!58 &2597061151435480924
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -198,3 +177,27 @@ MonoBehaviour:
   compressRotation: 0
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &-6459259137053598803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8404797427484816968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e0f6bd254d3cae4cada55450bc9797a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  foodSource1:
+  - {fileID: 21300000, guid: c91c53647b479514a96989ccf7b3a7ca, type: 3}
+  - {fileID: 21300000, guid: 0a6e4e259f578d348887b9da009f49e9, type: 3}
+  - {fileID: 21300000, guid: bf2638e16060bbc4e89a1f369368f45f, type: 3}
+  foodSource2:
+  - {fileID: 21300000, guid: 2b176cce311b4754cbc3c513c48bf625, type: 3}
+  - {fileID: 21300000, guid: 2b0cbcd77c820bf47afbf9bb09ae13f5, type: 3}
+  - {fileID: 21300000, guid: 6258280fd3ce8134e807b0426cb249c3, type: 3}
+  spriteRenderer: {fileID: 8404797427476180372}

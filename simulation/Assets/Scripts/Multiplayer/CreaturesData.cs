@@ -18,6 +18,7 @@ public class CreaturesData : MonoBehaviour
     // Start is called before the first frame update
     public void GetData()
     {
+        if (creatureParentObject.transform.childCount < 10) return;
         if (instance == null) {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -34,11 +35,12 @@ public class CreaturesData : MonoBehaviour
 
 
         Transform exCreature = creatureParentObject.transform.GetChild(0);
-        value = exCreature.GetComponent<Creature>().age;
+        value = exCreature.GetComponent<Creature>().creatureData.maxAge;
     }
 
     public void StartMultiplayer()
     {
+        if (creatureParentObject.transform.childCount < 10) return;
         Destroy(gameManager);
         SceneManager.LoadScene("Lobby");
     }

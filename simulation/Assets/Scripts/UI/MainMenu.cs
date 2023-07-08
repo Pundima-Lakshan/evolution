@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class MainMenu: MonoBehaviour
 {
     public void PlayGameBtnClick() {
-        LevelManager.instance.LoadScene("GameScene");
+        //LevelManager.instance.LoadScene("TrainingScene");
+
+        var scene = SceneManager.LoadSceneAsync("TrainingScene");
+        scene.allowSceneActivation = true;
     }
 
     public void QuitGameBtnClick() {

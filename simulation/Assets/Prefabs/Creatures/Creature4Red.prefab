@@ -96,6 +96,8 @@ GameObject:
   - component: {fileID: 4142249412688392062}
   - component: {fileID: 4075988382171542427}
   - component: {fileID: 6025684464593795658}
+  - component: {fileID: 3189167098297785090}
+  - component: {fileID: 5469298094412242509}
   m_Layer: 0
   m_Name: Creature4Red
   m_TagString: Untagged
@@ -133,10 +135,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentRigibody2D: {fileID: 4075988382171542427}
-  maxHealth: 10
-  maxAge: 10
-  moveSpeed: 0.1
-  sensorDistance: 5
+  creatureData:
+    maxHealth: 20
+    maxAge: 60
+    moveSpeed: 1
+    sensorDistance: 5
+    fitnessGene: 0.5
+    reproductionFitness: 0.4
+    mutationRatio: 0.2
+    hungerLimitToDeath: 6
+    reproductionHealth: 16
+  age: 0
+  health: 20
+  hunger: 0
+  fitness: 0
+  isEating: 0
+  foodSourcesSensed: []
+  radiationAreasSensed: []
+  movingDirection: {x: 0, y: 0}
+  moveDirectionSetCount: 0
 --- !u!50 &4075988382171542427
 Rigidbody2D:
   serializedVersion: 4
@@ -174,6 +191,61 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
+--- !u!114 &3189167098297785090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059438961279499987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c818f7b85b926b44ba72834e898a954f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentRigibody2D: {fileID: 4075988382171542427}
+  creatureData:
+    maxHealth: 20
+    maxAge: 60
+    moveSpeed: 1
+    sensorDistance: 5
+    fitnessGene: 0.5
+    reproductionFitness: 0.4
+    mutationRatio: 0.2
+    hungerLimitToDeath: 6
+    reproductionHealth: 16
+  age: 0
+  health: 20
+  hunger: 0
+  fitness: 0
+  isEating: 0
+  foodSourcesSensed: []
+  radiationAreasSensed: []
+  movingDirection: {x: 0, y: 0}
+  moveDirectionSetCount: 0
+--- !u!114 &5469298094412242509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059438961279499987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030b3c0d273a3764f8861f9082d71c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  biases: []
+  aSensor: 0
+  aSensorT: 0
+  bSensor: 0
+  bSensorT: 0
+  cSensor: 0
+  cSensorT: 0
+  ac: 0
+  t: 0
+  parentRigibody2D: {fileID: 4075988382171542427}
+  moveSpeed: 2
 --- !u!1 &8481596126819882860
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,3 +351,4 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

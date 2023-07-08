@@ -7,29 +7,23 @@ using TMPro;
 public class Creature : MonoBehaviour, IPointerClickHandler {
 
     [SerializeField] private Rigidbody2D parentRigibody2D;
-
     public CreatureData creatureData;
 
-    private const float fitnessGene = 0.5f; // 0 to 1 is it
-
-    public float age = 0f;
-    private float fitness = 0f;
-
-    [SerializeField] private float hunger = 0f;
-    private float hungerFoodReduceRatio = 1f;
-    private float hungerLimit = 0.3f;
-    private float hungerGainRatio = 0.01f;
-
+    [SerializeField] private float age = 0f;
     [SerializeField] private float health = 20f;
-    private float healthRadiationDamageRatio = 0.1f;
-    private float healthHungerDamageRatio = 0.01f;
-    private float healthFoodGainRatio = 0.01f;
+    [SerializeField] private float hunger = 0f;
+    [SerializeField] private float fitness = 0f;
+
+    private float hungerGainRatio = 0.1f;
+    private float hungerFoodReduceRatio = 1f;    
+    
+    private float healthRadiationDamageRatio = 2f;
+    private float healthFoodGainRatio = 0.3f;
+
+    private int maxChildren = 4;
 
     public bool isEating = false;
     private bool isDead = false;
-
-    private int maxChildren = 4;
-    private float mutationRatio = 0.2f;
 
     public List<GameObject> foodSourcesSensed = new List<GameObject>();
     public List<GameObject> radiationAreasSensed = new List<GameObject>();
@@ -37,40 +31,54 @@ public class Creature : MonoBehaviour, IPointerClickHandler {
     public Vector2 movingDirection;
 
     private bool isIndicatorShowing = false;
+
     private void CheckCircularSensors() {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, creatureData.sensorDistance);
         foreach (Collider2D collider in colliders) {
-            if (collider.CompareTag("Food")) {
+            if (collider.gameObject.CompareTag("Food")) {
                 foodSourcesSensed.Add(collider.gameObject);
-            } else if (collider.CompareTag("Radiation")) {
+            } else if (collider.gameObject.CompareTag("Radiation")) {
                 radiationAreasSensed.Add(collider.gameObject);
             }
         }
     }
 
-    private Vector2 DetermineMovingDirection() {
+    private void CheckSensorsNeuralNetwork() {
+
+    }
+
+    public int moveDirectionSetCount = 0;
+    private int randomDirectionCount = 20;
+    private void DetermineMovingDirection() {
         Vector2 moveDirection2D = movingDirection;
 
-        float minFoodDistance = 9999999f;
+        float minFoodDistance = float.MaxValue;
         int foodSourceIndex = 0;
 
-        if(!(foodSourcesSensed.Count > 0)) {
-            return moveDirection2D;
+        if(!(foodSourcesSensed.Count > 0) || hunger < creatureData.hungerLimitToDeath) {
+            if(moveDirectionSetCount > randomDirectionCount) {
+                movingDirection = new Vector2(UnityEngine.Random.Range(-100, +100+1), UnityEngine.Random.Range(-100, +100+1)).normalized;
+                moveDirectionSetCount= 0;
+                return;
+            }
+            movingDirection = moveDirection2D;
+            moveDirectionSetCount++;
+            return;
         }
 
         Debug.Log("direction checked");
 
         // get closest food source
         for(int i = 0; i < foodSourcesSensed.Count; i++) {
-            Vector2 tempVector = transform.position - foodSourcesSensed[i].transform.position;
-            float tempDistance = Vector2.Distance(tempVector, transform.position);
+            Vector2 foodSourcePosition = foodSourcesSensed[i].transform.position;
+            float tempDistance = Vector2.Distance(foodSourcePosition, transform.position);
             if(tempDistance < minFoodDistance) {
                 minFoodDistance = tempDistance;
                 foodSourceIndex = i;
             }            
         }
 
-        //float minRadiationDistance = 9999999f;
+        //float minRadiationDistance = float.MaxValue;
         //int radiationSourceIndex = 0;
 
         // avoid radiation zones
@@ -84,19 +92,21 @@ public class Creature : MonoBehaviour, IPointerClickHandler {
         //}
 
         //if(minRadiationDistance < minFoodDistance) {
-            moveDirection2D = foodSourcesSensed[foodSourceIndex].transform.position;
+            movingDirection = (foodSourcesSensed[foodSourceIndex].transform.position - transform.position).normalized;
         //} else {
         //    moveDirection2D = radiationAreasSensed[radiationSourceIndex].transform.position;
         //}     
 
         foodSourcesSensed.Clear();
         radiationAreasSensed.Clear();
+    }
 
-        return moveDirection2D;
+    private void DeterminMovingDirectionUsingNeuralNetwork() {
+
     }
 
     private void Eat() {
-        if (hunger >= hungerLimit) {
+        if (hunger >= creatureData.hungerLimitToDeath) {
             hunger -= hungerFoodReduceRatio * Time.deltaTime;
         } else if(hunger >= 0) {
             isEating = false;
@@ -122,51 +132,24 @@ public class Creature : MonoBehaviour, IPointerClickHandler {
         }
     }
     
-    private void GetStarveDamage() {
-        if (health > 0) {
-            health -= healthHungerDamageRatio * hunger;
-        } else {
-            health = 0;
-            isDead = true;
-        }
-    }
-
     private void Reproduce() {
+        SpawnCreature spawnCreature = new SpawnCreature();
         // code to spawn new child
         for(int i = 0; i < UnityEngine.Random.Range(1, maxChildren+1); i++) {
-            SpawnCreature();
+            SpawnCreature.instance.SpawnTheCreature(transform.gameObject);
         }
     }
 
-    void SpawnCreature() {
-        Vector3 spawnPosition = transform.position;
-        GameObject spawnedCreature = Instantiate(gameObject, spawnPosition, Quaternion.identity);
-        spawnedCreature.transform.SetParent(transform.parent);
-        
-        Creature creatureComponent = spawnedCreature.GetComponent<Creature>();
-        if(creatureComponent == null) {
-            Debug.Log("Couldnt get creature component reproduction");
-            return;
-        }
+    //private void MoveCreature() {
+    //    if (isEating) {
+    //        parentRigibody2D.velocity = Vector2.zero;
+    //        return;
+    //    }
 
-        float _maxHealth = UnityEngine.Random.Range(creatureData.maxHealth - creatureData.maxHealth * mutationRatio, creatureData.maxHealth + creatureData.maxHealth * mutationRatio);
-        float _maxAge = UnityEngine.Random.Range(creatureData.maxAge - creatureData.maxAge * mutationRatio, creatureData.maxAge + creatureData.maxAge * mutationRatio);
-        float _moveSpeed = UnityEngine.Random.Range(creatureData.moveSpeed - creatureData.moveSpeed * mutationRatio, creatureData.moveSpeed + creatureData.moveSpeed * mutationRatio);
-        float _sensorDistance = UnityEngine.Random.Range(creatureData.sensorDistance - creatureData.sensorDistance * mutationRatio, creatureData.sensorDistance + creatureData.sensorDistance * mutationRatio);
+    //    parentRigibody2D.velocity = movingDirection * creatureData.moveSpeed;
+    //}
 
-        creatureComponent.creatureData.SetCreatureData(_maxHealth, _maxAge, _moveSpeed, _sensorDistance);
-    }
-
-    private void MoveCreature() {
-        if (isEating) {
-            parentRigibody2D.velocity = Vector2.zero;
-            return;
-        }
-
-        parentRigibody2D.velocity = movingDirection * creatureData.moveSpeed;
-    }
-
-    private static float FitnessLifeGraph(float age, float fitnessGene, float s) {
+    private static float UpdateFitness(float age, float fitnessGene, float s) {
         double coefficient = 1 / (s * Math.Sqrt(2 * Math.PI));
         double exponent = -Math.Pow(age - fitnessGene, 2) / (2 * Math.Pow(s, 2));
         return Convert.ToSingle(coefficient * Math.Exp(exponent));
@@ -193,7 +176,7 @@ public class Creature : MonoBehaviour, IPointerClickHandler {
         }
         text.text = hunger.ToString() + "\n" + health.ToString() + "\n" + age.ToString();
 
-        SpawnCreature();
+        Reproduce();
     }
 
     private void UpdateCreatureIndicatorData(Transform creatureTransform) {
@@ -223,42 +206,58 @@ public class Creature : MonoBehaviour, IPointerClickHandler {
         Physics2D.alwaysShowColliders = true;
 
         health = creatureData.maxHealth;
+        creatureData.reproductionHealth = creatureData.maxHealth;
 
         movingDirection = Vector2.one;
+
+        string filePath = Application.dataPath + "saveData/saveDataWeights.json";
+        Debug.Log(filePath);
     }
 
-    private void Update() {
+    bool isReproduced = false;
 
+    private void Update() {
         // Death Update
         if (isDead) {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         // Hunger Update
         hunger += hungerGainRatio * Time.deltaTime; // adjust to time it
-        if (hunger > hungerLimit) {
-            GetStarveDamage();
+        if (hunger > creatureData.hungerLimitToDeath) {
+            isDead = true;
         }
 
-        // Age Update
+        // Age Update measured by seconds
         age += 1f * Time.deltaTime; // adjust to time it
 
         // Fitness Update
-        fitness = FitnessLifeGraph(age, fitnessGene, 1f);
+        fitness = UpdateFitness(age, creatureData.fitnessGene, 1f);
 
         // Reproduce Update
-        if (fitness == fitnessGene && health >= 0.5 * creatureData.maxHealth) {
+        //if (fitness > creatureData.reproductionFitness && health >= creatureData.reproductionHealth && age >= creatureData.maxAge * creatureData.fitnessGene) {
+        //    Reproduce();
+        //}
+
+        if (age >= creatureData.maxAge * 0.9f && !isReproduced)
+        {
             Reproduce();
+            isReproduced = true;
+        }
+
+        if(age >= creatureData.maxAge * 5)
+        {
+            isDead = true;
         }
 
         // Sensor Update
-        CheckCircularSensors();
+        //CheckCircularSensors();
 
         // Determine direction
-        movingDirection = DetermineMovingDirection();
+        //DetermineMovingDirection();
 
         // Move Update
-        MoveCreature();
+        //MoveCreature();
 
         // Update UI
         UpdateCreatureIndicatorData(transform);
@@ -267,7 +266,7 @@ public class Creature : MonoBehaviour, IPointerClickHandler {
 
     // Other updates on collisions
     public void Collided(string name) {
-        if (name == "Food" && hunger > hungerLimit) {
+        if (name == "Food" && hunger > creatureData.hungerLimitToDeath) {
             isEating = true;
             Debug.Log("isEating");
             Eat();
@@ -275,5 +274,4 @@ public class Creature : MonoBehaviour, IPointerClickHandler {
             GetRadiationDamaged();
         }
     }
-
 }

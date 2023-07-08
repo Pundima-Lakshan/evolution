@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5937893777823637781}
   - component: {fileID: 5937893777823637782}
   - component: {fileID: 5937893777823637783}
-  - component: {fileID: 6604104721718489942}
   - component: {fileID: 5401484807553854000}
   - component: {fileID: 4207769440102251354}
+  - component: {fileID: 7163865108873316480}
   m_Layer: 0
   m_Name: Creature3Blue
   m_TagString: Creature
@@ -57,13 +57,20 @@ MonoBehaviour:
     maxAge: 60
     moveSpeed: 1
     sensorDistance: 5
+    fitnessGene: 0.5
+    reproductionFitness: 0.4
+    mutationRatio: 0.2
+    hungerLimitToDeath: 6
+    reproductionHealth: 8
   age: 0
-  hunger: 0
   health: 20
+  hunger: 0
+  fitness: 0
   isEating: 0
   foodSourcesSensed: []
   radiationAreasSensed: []
   movingDirection: {x: 0, y: 0}
+  moveDirectionSetCount: 0
 --- !u!50 &5937893777823637782
 Rigidbody2D:
   serializedVersion: 4
@@ -101,21 +108,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
---- !u!114 &6604104721718489942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5937893777823637786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b21af611f799cd4cbecaf98dd156db4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0, w: 0}
-  scale: {x: 0, y: 0, z: 0}
 --- !u!114 &5401484807553854000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +159,29 @@ MonoBehaviour:
   compressRotation: 0
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &7163865108873316480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5937893777823637786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030b3c0d273a3764f8861f9082d71c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  biases: []
+  aSensor: 0
+  aSensorT: 0
+  bSensor: 0
+  bSensorT: 0
+  cSensor: 0
+  cSensorT: 0
+  ac: 0
+  t: 0
+  parentRigibody2D: {fileID: 5937893777823637782}
+  moveSpeed: 2
 --- !u!1 &7023216458773604440
 GameObject:
   m_ObjectHideFlags: 0

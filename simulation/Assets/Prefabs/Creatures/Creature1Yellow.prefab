@@ -769,6 +769,7 @@ GameObject:
   - component: {fileID: 7644548362925699565}
   - component: {fileID: 8788687002002904199}
   - component: {fileID: 1491928186544743950}
+  - component: {fileID: 8857082964528768716}
   m_Layer: 0
   m_Name: Creature1Yellow
   m_TagString: Untagged
@@ -850,10 +851,43 @@ MonoBehaviour:
     maxAge: 60
     moveSpeed: 5
     sensorDistance: 5
+    fitnessGene: 0.5
+    reproductionFitness: 0.4
+    mutationRatio: 0.2
+    hungerLimitToDeath: 6
+    reproductionHealth: 16
   age: 0
-  hunger: 0
   health: 20
+  hunger: 0
+  fitness: 0
   isEating: 0
+  foodSourcesSensed: []
+  radiationAreasSensed: []
+  movingDirection: {x: 0, y: 0}
+  moveDirectionSetCount: 0
+--- !u!114 &8857082964528768716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4645598510706778774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030b3c0d273a3764f8861f9082d71c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  biases: []
+  aSensor: 0
+  aSensorT: 0
+  bSensor: 0
+  bSensorT: 0
+  cSensor: 0
+  cSensorT: 0
+  ac: 0
+  t: 0
+  parentRigibody2D: {fileID: 7644548362925699565}
+  moveSpeed: 2
 --- !u!1 &4684942398459433158
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,6 +1398,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5878268503785056329
 GameObject:
   m_ObjectHideFlags: 0

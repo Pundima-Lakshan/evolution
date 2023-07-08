@@ -105,6 +105,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4939201947565605367
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,6 +202,8 @@ GameObject:
   - component: {fileID: 3912945572115264244}
   - component: {fileID: 2246808963406820663}
   - component: {fileID: 7438678813316287232}
+  - component: {fileID: 53730704811216034}
+  - component: {fileID: 6022220381338209292}
   m_Layer: 0
   m_Name: Creature2Orange
   m_TagString: Untagged
@@ -275,7 +278,77 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentRigibody2D: {fileID: 3912945572115264244}
-  maxHealth: 10
-  maxAge: 10
-  moveSpeed: 0.1
-  sensorDistance: 5
+  creatureData:
+    maxHealth: 20
+    maxAge: 60
+    moveSpeed: 1
+    sensorDistance: 5
+    fitnessGene: 0.5
+    reproductionFitness: 0.4
+    mutationRatio: 0.2
+    hungerLimitToDeath: 6
+    reproductionHealth: 16
+  age: 0
+  health: 20
+  hunger: 0
+  fitness: 0
+  isEating: 0
+  foodSourcesSensed: []
+  radiationAreasSensed: []
+  movingDirection: {x: 0, y: 0}
+  moveDirectionSetCount: 0
+--- !u!114 &53730704811216034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646653301025328578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c818f7b85b926b44ba72834e898a954f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentRigibody2D: {fileID: 3912945572115264244}
+  creatureData:
+    maxHealth: 20
+    maxAge: 60
+    moveSpeed: 1
+    sensorDistance: 5
+    fitnessGene: 0.5
+    reproductionFitness: 0.4
+    mutationRatio: 0.2
+    hungerLimitToDeath: 6
+    reproductionHealth: 16
+  age: 0
+  health: 20
+  hunger: 0
+  fitness: 0
+  isEating: 0
+  foodSourcesSensed: []
+  radiationAreasSensed: []
+  movingDirection: {x: 0, y: 0}
+  moveDirectionSetCount: 0
+--- !u!114 &6022220381338209292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6646653301025328578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030b3c0d273a3764f8861f9082d71c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  biases: []
+  aSensor: 0
+  aSensorT: 0
+  bSensor: 0
+  bSensorT: 0
+  cSensor: 0
+  cSensorT: 0
+  ac: 0
+  t: 0
+  parentRigibody2D: {fileID: 3912945572115264244}
+  moveSpeed: 2

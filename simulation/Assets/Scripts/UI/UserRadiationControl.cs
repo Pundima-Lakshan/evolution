@@ -10,7 +10,6 @@ public class UserRadiationControl : MonoBehaviour
     [SerializeField] private GameObject radiation;
     [SerializeField] private GameObject radiationParentObject;
     [SerializeField] private GameObject mouseRadiationParentObject;
-    [SerializeField] private TextMeshProUGUI radiationCount;
 
     Vector3 pos;
     GameObject radiationObject;
@@ -48,7 +47,6 @@ public class UserRadiationControl : MonoBehaviour
             AudioManager.instance.Play("EnvironmentPlacement");
             Destroy(radiationObject);
             CreateMousePointerObject();
-            radiationCount.text = GameManager.instance.GetRadiationZoneCount().ToString();
         }
     }
 

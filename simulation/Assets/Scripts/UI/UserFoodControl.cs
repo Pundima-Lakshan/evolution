@@ -10,7 +10,6 @@ public class UserFoodControl : MonoBehaviour
     [SerializeField] private GameObject food;
     [SerializeField] private GameObject foodParentObject;
     [SerializeField] private GameObject mouseFoodParentObject;
-    [SerializeField] private TextMeshProUGUI foodCount;
 
     Vector3 pos;
     GameObject foodObject;
@@ -50,9 +49,6 @@ public class UserFoodControl : MonoBehaviour
             AudioManager.instance.Play("EnvironmentPlacement");
             Destroy(foodObject);
             CreateMousePointerObject();
-
-            GameManager.instance.SetFoodSourceCount(GameManager.instance.GetFoodSourceCount()-1);
-            foodCount.text = GameManager.instance.GetFoodSourceCount().ToString();
         }
     }
 
