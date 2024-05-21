@@ -23,6 +23,15 @@ Product Functions
 8.	Offer a variety of statistics and visualization tools to help players analyze the performance of their virtual organisms and understand the underlying mechanics of natural selection.
 9.	Provide an intuitive and user-friendly interface, with clear instructions and tutorials to guide players through the gameplay.
 
+Design and Implementation Constraints:
+The natural selection game simulation has been designed with a number of constraints in mind to ensure that it is feasible to implement and meets the project's objectives. These constraints include:
+1.	Top-Down 2D Design: The game will be implemented as a top-down 2D game, rather than a 3D game. This design choice was made to simplify the implementation process and reduce development time, while still providing an immersive and engaging experience for players.
+2.	Neural Network Implementation: Neural networks are an essential component of the natural selection game simulation and will be implemented using a pre-existing neural network library. This will allow for efficient implementation and testing of neural network algorithms and reduce the amount of development time required to implement this functionality.
+3.	Limited Multiplayer Support: The game will support multiplayer mode for a total of two to four players via LAN, rather than online multiplayer. This was done to simplify the implementation process and reduce the complexity of network programming, while still providing a fun and engaging multiplayer experience for players.
+4.	Resource Management: The game will require the efficient management of computational resources, particularly with respect to the use of neural networks. Efforts will be made to optimize the code for efficient use of resources and to minimize memory usage, to ensure that the game can be run on a wide range of hardware configurations.
+5.	Operating System Compatibility: The game will be developed and tested on Windows 10 and 11 operating systems. Efforts will be made to ensure that the game is compatible with other operating systems, but compatibility cannot be guaranteed.
+
+
 Neural Network functionalities:
 
 Initialization:
