@@ -1,9 +1,9 @@
-Purpose
+Purpose:
 The purpose of this project is to develop a game simulation based on the principles of natural selection, where players can observe and interact with evolving populations of virtual organisms. 
 The game will incorporate neural networks as an essential component to allow the organisms to adapt and learn from their environment. By providing players with a fun and engaging way to explore the concepts of
 natural selection, we aim to increase their understanding of these topics and inspire interest in STEM fields. Through this project, we also hope to contribute to the research and development of more sophisticated neural network algorithms and their application to real-world problems.
 
-Product Scope
+Product Scope:
 The natural selection game simulation will be a software application that allows players to interact with virtual organisms as they evolve over time through natural selection. The game will be designed to be fun,
 engaging, and educational, providing players with a unique opportunity to learn about natural selection, and evolution overall.The game will feature a variety of settings and environments where the organisms will 
 live and compete for survival, including different climate zones, food sources, and predators. The virtual organisms will be controlled by neural networks that will enable them to learn and adapt to their environment, 
@@ -23,7 +23,7 @@ Product Functions
 8.	Offer a variety of statistics and visualization tools to help players analyze the performance of their virtual organisms and understand the underlying mechanics of natural selection.
 9.	Provide an intuitive and user-friendly interface, with clear instructions and tutorials to guide players through the gameplay.
 
-Neural Network functionalities
+Neural Network functionalities:
 
 Initialization:
 The learning process begins with the initialization of a diverse population of virtual creatures. Each creature is equipped with a neural network, represented by the NNet script. These neural networks are 
